@@ -20,9 +20,9 @@ class MyAdapter: RecyclerView.Adapter<MyAdapter.ViewHolder>() {
     val images = ArrayList<Int>()
     val TituloAux = ArrayList<String>()
     val DetallesAux = ArrayList<String>()
-    val ImagesAux = ArrayList<Int>()
+    val ImagesAux = ArrayList<Int>() //Auxiliares para cambiar los arreglos por los filtrados
 
-    init {
+    init { //Se inicializan los valores con los que se va a cargar el Recyclerviw
         TituloAux.addAll(listOf("Steins;Gate", "Mushoku Tensei", "Re;Zero", "Tengen Toppa Gurren Laggan"))
         DetallesAux.addAll(listOf("Ta chido", "Compralo", "10/10", "Obra Maestra"))
         ImagesAux.addAll(listOf(
@@ -39,7 +39,7 @@ class MyAdapter: RecyclerView.Adapter<MyAdapter.ViewHolder>() {
       var itemImage : ImageView
       var itemTitle: TextView
       var itemDetail: TextView
-      init {
+      init { //Se buscan los componentes del recycler para poder modificarlos con los valores antes inicializados
           itemImage = itemView.findViewById(R.id.portada)
           itemTitle = itemView.findViewById(R.id.titulo)
           itemDetail = itemView.findViewById(R.id.details)
@@ -71,7 +71,7 @@ class MyAdapter: RecyclerView.Adapter<MyAdapter.ViewHolder>() {
         val filtroD = ArrayList<String>()
         val filtroI = ArrayList<Int>()
 
-        for (pos in 0 until TituloAux.size) {
+        for (pos in 0 until TituloAux.size) {//Se busca en el arreglo de los titulos para ver si se encuentra lo buscado
             if (TituloAux[pos].contains(busqueda)) {
                 filtroT.add(TituloAux[pos])
                 filtroD.add(DetallesAux[pos])
@@ -79,14 +79,14 @@ class MyAdapter: RecyclerView.Adapter<MyAdapter.ViewHolder>() {
             }
         }
 
-        titulos.clear()
+        titulos.clear() //Se limpian los arreglos y se les carga con los nuevos datos filtrados
         detalles.clear()
         images.clear()
         titulos.addAll(filtroT)
         detalles.addAll(filtroD)
         images.addAll(filtroI)
 
-        notifyDataSetChanged()
+        notifyDataSetChanged()//Funcion para notificar al Recyclerview de los cambios
     }
 
 
