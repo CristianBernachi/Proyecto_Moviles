@@ -10,16 +10,30 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.recyclerview.widget.RecyclerView
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MyAdapter: RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
-    lateinit var Intro : EditText
-    val titulos = arrayOf("Steins;Gate", "Mushoku Tensei", "Re;Zero", "Tengen Toppa Gurren Laggan")
-    val detalles = arrayOf("Ta chido", "Compralo", "10/10", "Obra Maestra")
-    val images = intArrayOf(R.drawable.sg,
-        R.drawable.mt,
-        R.drawable.rz,
-        R.drawable.ttgl)
+    val titulos = ArrayList<String>() //Datos cambiados a listas para facilitar la busqueda
+    val detalles = ArrayList<String>()
+    val images = ArrayList<Int>()
+    val TituloAux = ArrayList<String>()
+    val DetallesAux = ArrayList<String>()
+    val ImagesAux = ArrayList<Int>()
+
+    init {
+        TituloAux.addAll(listOf("Steins;Gate", "Mushoku Tensei", "Re;Zero", "Tengen Toppa Gurren Laggan"))
+        DetallesAux.addAll(listOf("Ta chido", "Compralo", "10/10", "Obra Maestra"))
+        ImagesAux.addAll(listOf(
+            R.drawable.sg,
+            R.drawable.mt,
+            R.drawable.rz,
+            R.drawable.ttgl))
+        titulos.addAll(TituloAux)
+        detalles.addAll(DetallesAux)
+        images.addAll(ImagesAux)
+    }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
       var itemImage : ImageView
@@ -49,6 +63,30 @@ class MyAdapter: RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
         return titulos.size
+    }
+
+    fun filter(text: String) {
+        val busqueda = text
+        val filtroT = ArrayList<String>()
+        val filtroD = ArrayList<String>()
+        val filtroI = ArrayList<Int>()
+
+        for (pos in 0 until TituloAux.size) {
+            if (TituloAux[pos].contains(busqueda)) {
+                filtroT.add(TituloAux[pos])
+                filtroD.add(DetallesAux[pos])
+                filtroI.add(ImagesAux[pos])
+            }
+        }
+
+        titulos.clear()
+        detalles.clear()
+        images.clear()
+        titulos.addAll(filtroT)
+        detalles.addAll(filtroD)
+        images.addAll(filtroI)
+
+        notifyDataSetChanged()
     }
 
 
