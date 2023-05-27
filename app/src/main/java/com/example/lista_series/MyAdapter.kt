@@ -19,38 +19,57 @@ class MyAdapter: RecyclerView.Adapter<MyAdapter.ViewHolder>() {
     val detalles = ArrayList<String>()
     val images = ArrayList<Int>()
     val TituloAux = ArrayList<String>()
-    val DetallesAux = ArrayList<String>()
-    val ImagesAux = ArrayList<Int>() //Auxiliares para cambiar los arreglos por los filtrados
+    val DetalleAux = ArrayList<String>()
+    val ImageAux = ArrayList<Int>()//Auxiliares para cambiar los arreglos por los filtrados
 
-    init { //Se inicializan los valores con los que se va a cargar el Recyclerviw
-        TituloAux.addAll(listOf("Steins;Gate", "Mushoku Tensei", "Re;Zero", "Tengen Toppa Gurren Laggan"))
-        DetallesAux.addAll(listOf("Ta chido", "Compralo", "10/10", "Obra Maestra"))
-        ImagesAux.addAll(listOf(
-            R.drawable.sg,
-            R.drawable.mt,
-            R.drawable.rz,
-            R.drawable.ttgl))
+    init {//Se inicializan los valores con los que se va a cargar el Recyclerviw
+        TituloAux.addAll(
+            listOf(
+                "Steins;Gate",
+                "Mushoku Tensei",
+                "Re;Zero",
+                "Tengen Toppa Gurren Laggan"
+            )
+        )
+        DetalleAux.addAll(
+            listOf(
+                "Ta chido",
+                "Compralo",
+                "10/10",
+            "Obra Maestra"
+            )
+        )
+        ImageAux.addAll(
+            listOf(
+                R.drawable.sg,
+                R.drawable.mt,
+                R.drawable.rz,
+                R.drawable.ttgl
+            )
+        )
         titulos.addAll(TituloAux)
-        detalles.addAll(DetallesAux)
-        images.addAll(ImagesAux)
+        detalles.addAll(DetalleAux)
+        images.addAll(ImageAux)
     }
 
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-      var itemImage : ImageView
-      var itemTitle: TextView
-      var itemDetail: TextView
-      init { //Se buscan los componentes del recycler para poder modificarlos con los valores antes inicializados
-          itemImage = itemView.findViewById(R.id.portada)
-          itemTitle = itemView.findViewById(R.id.titulo)
-          itemDetail = itemView.findViewById(R.id.details)
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var itemImage: ImageView
+        var itemTitle: TextView
+        var itemDetail: TextView
 
-      }
+        init {//Se buscan los componentes del recycler para poder modificarlos con los valores antes inicializados
+            itemImage = itemView.findViewById(R.id.portada)
+            itemTitle = itemView.findViewById(R.id.titulo)
+            itemDetail = itemView.findViewById(R.id.details)
+
+        }
 
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-      val li = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_item, parent, false)
+        val li =
+            LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_item, parent, false)
         return ViewHolder(li)
     }
 
@@ -74,20 +93,18 @@ class MyAdapter: RecyclerView.Adapter<MyAdapter.ViewHolder>() {
         for (pos in 0 until TituloAux.size) {//Se busca en el arreglo de los titulos para ver si se encuentra lo buscado
             if (TituloAux[pos].contains(busqueda)) {
                 filtroT.add(TituloAux[pos])
-                filtroD.add(DetallesAux[pos])
-                filtroI.add(ImagesAux[pos])
+                filtroD.add(DetalleAux[pos])
+                filtroI.add(ImageAux[pos])
             }
         }
 
-        titulos.clear() //Se limpian los arreglos y se les carga con los nuevos datos filtrados
+        titulos.clear()//Se limpian los arreglos y se les carga con los nuevos datos filtrados
         detalles.clear()
         images.clear()
         titulos.addAll(filtroT)
         detalles.addAll(filtroD)
         images.addAll(filtroI)
 
-        notifyDataSetChanged()//Funcion para notificar al Recyclerview de los cambios
+        notifyDataSetChanged() //Funcion para notificar al Recyclerview de los cambios
     }
-
-
 }
