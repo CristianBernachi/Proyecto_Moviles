@@ -25,26 +25,32 @@ class MyAdapter: RecyclerView.Adapter<MyAdapter.ViewHolder>() {
     init {//Se inicializan los valores con los que se va a cargar el Recyclerviw
         TituloAux.addAll(
             listOf(
-                "Steins;Gate",
+                "Breaking Bad",
                 "Mushoku Tensei",
                 "Re;Zero",
+                "Steins;Gate",
                 "Tengen Toppa Gurren Laggan"
+
             )
         )
         DetalleAux.addAll(
             listOf(
-                "Ta chido",
+                "Jesse",
                 "Compralo",
-                "10/10",
+                "Ta chido",
+                   "10/10",
             "Obra Maestra"
+
             )
         )
         ImageAux.addAll(
             listOf(
-                R.drawable.sg,
+                R.drawable.bb,
                 R.drawable.mt,
                 R.drawable.rz,
+                R.drawable.sg,
                 R.drawable.ttgl
+
             )
         )
         titulos.addAll(TituloAux)

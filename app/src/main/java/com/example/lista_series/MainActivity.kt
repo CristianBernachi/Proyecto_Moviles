@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)//Modifica el LayoutManager del Recycler
         recyclerView.adapter = adapter
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
