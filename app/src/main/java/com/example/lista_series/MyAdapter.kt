@@ -5,16 +5,19 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.view.menu.MenuView.ItemView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 import kotlin.collections.ArrayList
 
 class MyAdapter: RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
+    private var itemClickListener: OnItemClickListener? = null
     val titulos = ArrayList<String>() //Datos cambiados a listas para facilitar la busqueda
     val detalles = ArrayList<String>()
     val images = ArrayList<Int>()
@@ -58,6 +61,14 @@ class MyAdapter: RecyclerView.Adapter<MyAdapter.ViewHolder>() {
         images.addAll(ImageAux)
     }
 
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        itemClickListener = listener
+    }
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemImage: ImageView
         var itemTitle: TextView
@@ -68,6 +79,11 @@ class MyAdapter: RecyclerView.Adapter<MyAdapter.ViewHolder>() {
             itemTitle = itemView.findViewById(R.id.titulo)
             itemDetail = itemView.findViewById(R.id.details)
 
+        }
+        fun bind(item: String, listener: OnItemClickListener) {
+            itemView.setOnClickListener {
+                listener.onItemClick(adapterPosition)
+            }
         }
 
     }
@@ -83,6 +99,7 @@ class MyAdapter: RecyclerView.Adapter<MyAdapter.ViewHolder>() {
         holder.itemTitle.text = titulos[position]
         holder.itemImage.setImageResource(images[position])
         holder.itemDetail.text = detalles[position]
+        itemClickListener?.let { holder.bind(titulos[position], it) }
 
     }
 
