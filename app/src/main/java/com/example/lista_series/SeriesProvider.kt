@@ -2,7 +2,7 @@ package com.example.lista_series
 
 class SeriesProvider {
     companion object{
-        val SeriesList = listOf<Series>(
+        var SeriesList = mutableListOf<Series>(
             Series(
                 "Breaking Bad",
                 "Jesse",

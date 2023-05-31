@@ -5,22 +5,25 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
-    /*val instancia = MyAdapter()  // Acceder a una varible de una clase desde otra
-    val titulos = instancia.titulos
-    val detalles = instancia.detalles
-    val imagen = instancia.images*/
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initRV()
+
+        SeriesProvider.SeriesList.add(
+            Series(
+                "PRUEBA",
+                "PRUEBA",
+                R.drawable.mt
+            )
+        )
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -35,7 +38,6 @@ class MainActivity : AppCompatActivity() {
             R.id.conf -> cambiarActivity(2)
             else -> super.onOptionsItemSelected(item)
         }
-
 
     }
 
@@ -59,7 +61,9 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview) //Implementa el RecyclerView y su Adapter
         val adapter = MyAdapter(SeriesProvider.SeriesList)
+
         adapter.setOnItemClickListener(object : MyAdapter.OnItemClickListener {
+
             override fun onItemClick(position: Int) {
                 val clickedItem = SeriesProvider.SeriesList[position]
                 val intent = Intent(this@MainActivity, DetallesActivity::class.java).apply {
@@ -76,3 +80,8 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
     }
 }
+
+/*val instancia = MyAdapter()  // Acceder a una varible de una clase desde otra
+val titulos = instancia.titulos
+val detalles = instancia.detalles
+val imagen = instancia.images*/

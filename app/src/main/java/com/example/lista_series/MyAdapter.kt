@@ -9,10 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
 
-class MyAdapter(private val seriesList: List<Series>): RecyclerView.Adapter<MyAdapter.ViewHolder>() {
+class MyAdapter(private val seriesList: MutableList<Series>): RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
-    private var filteredList: List<Series> = seriesList
+    private var filteredList: MutableList<Series> = seriesList
     private var itemClickListener: OnItemClickListener? = null
+
+
 
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -70,11 +72,12 @@ class MyAdapter(private val seriesList: List<Series>): RecyclerView.Adapter<MyAd
     fun filter(text: String){
         val busqueda = text.toLowerCase(Locale.getDefault())
 
-        filteredList = if (busqueda.isNotEmpty()) {
+        filteredList = if (busqueda.isNotEmpty()) (
             seriesList.filter { series ->
                 series.titulo.toLowerCase(Locale.getDefault()).contains(busqueda)
             }
-        } else {
+        ) as MutableList<Series>
+        else {
             seriesList
         }
 
