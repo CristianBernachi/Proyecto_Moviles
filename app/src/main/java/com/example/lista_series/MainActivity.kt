@@ -10,37 +10,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
-    val instancia = MyAdapter()  // Acceder a una varible de una clase desde otra
+    /*val instancia = MyAdapter()  // Acceder a una varible de una clase desde otra
     val titulos = instancia.titulos
     val detalles = instancia.detalles
-    val imagen = instancia.images
+    val imagen = instancia.images*/
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview) //Implementa el RecyclerView y su Adapter
-        val adapter = MyAdapter()
-        adapter.setOnItemClickListener(object : MyAdapter.OnItemClickListener {
-            override fun onItemClick(position: Int) {
-                val detalles = detalles[position]
-                val imagen = imagen[position]
-                val titulo = titulos[position]
-
-                val intent = Intent(this@MainActivity, DetallesActivity::class.java).apply {
-                    putExtra("detalles", detalles)
-                    putExtra("imagen", imagen)
-                    putExtra("titulo", titulo)
-                }
-                startActivity(intent)
-                //Toast.makeText( this@MainActivity,titulo, Toast.LENGTH_SHORT).show()
-            }
-        })
-
-        recyclerView.layoutManager = LinearLayoutManager(this)//Modifica el LayoutManager del Recycler
-        recyclerView.adapter = adapter
-
+        initRV()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -73,5 +53,26 @@ class MainActivity : AppCompatActivity() {
         }
 
         return true
+    }
+
+    fun initRV(){
+
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview) //Implementa el RecyclerView y su Adapter
+        val adapter = MyAdapter(SeriesProvider.SeriesList)
+        adapter.setOnItemClickListener(object : MyAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val clickedItem = SeriesProvider.SeriesList[position]
+                val intent = Intent(this@MainActivity, DetallesActivity::class.java).apply {
+                    putExtra("detalles", clickedItem.detalles)
+                    putExtra("imagen", clickedItem.imagen)
+                    putExtra("titulo", clickedItem.titulo)
+                }
+                this@MainActivity.startActivity(intent)
+                //Toast.makeText( this@MainActivity,position.toString(), Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        recyclerView.layoutManager = LinearLayoutManager(this)//Modifica el LayoutManager del Recycler
+        recyclerView.adapter = adapter
     }
 }
