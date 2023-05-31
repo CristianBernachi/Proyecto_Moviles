@@ -10,17 +10,20 @@ import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview) //Implementa el RecyclerView y su Adapter
-        val adapter = MyAdapter()
+        initRV()
 
-        recyclerView.layoutManager = LinearLayoutManager(this)//Modifica el LayoutManager del Recycler
-        recyclerView.adapter = adapter
+        SeriesProvider.SeriesList.add(
+            Series(
+                "PRUEBA",
+                "PRUEBA",
+                R.drawable.mt
+            )
+        )
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -35,7 +38,6 @@ class MainActivity : AppCompatActivity() {
             R.id.conf -> cambiarActivity(2)
             else -> super.onOptionsItemSelected(item)
         }
-
 
     }
 
@@ -54,4 +56,32 @@ class MainActivity : AppCompatActivity() {
 
         return true
     }
+
+    fun initRV(){
+
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview) //Implementa el RecyclerView y su Adapter
+        val adapter = MyAdapter(SeriesProvider.SeriesList)
+
+        adapter.setOnItemClickListener(object : MyAdapter.OnItemClickListener {
+
+            override fun onItemClick(position: Int) {
+                val clickedItem = SeriesProvider.SeriesList[position]
+                val intent = Intent(this@MainActivity, DetallesActivity::class.java).apply {
+                    putExtra("detalles", clickedItem.detalles)
+                    putExtra("imagen", clickedItem.imagen)
+                    putExtra("titulo", clickedItem.titulo)
+                }
+                this@MainActivity.startActivity(intent)
+                //Toast.makeText( this@MainActivity,position.toString(), Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        recyclerView.layoutManager = LinearLayoutManager(this)//Modifica el LayoutManager del Recycler
+        recyclerView.adapter = adapter
+    }
 }
+
+/*val instancia = MyAdapter()  // Acceder a una varible de una clase desde otra
+val titulos = instancia.titulos
+val detalles = instancia.detalles
+val imagen = instancia.images*/

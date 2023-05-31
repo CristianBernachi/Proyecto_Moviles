@@ -22,14 +22,10 @@ class BuscarActivity : AppCompatActivity() {
         setContentView(R.layout.activity_buscar)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview2)
-        val adapter = MyAdapter()
+        val adapter = MyAdapter(SeriesProvider.SeriesList)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
-
-        recyclerView.visibility = View.VISIBLE //VUELVE INVISIBLE O VISIBLE EL RECYCLERVIEW, ya no se necesita xd
-
-
         Edit = findViewById(R.id.busqueda)
 
         Edit.addTextChangedListener(object : TextWatcher {
@@ -54,4 +50,8 @@ class BuscarActivity : AppCompatActivity() {
                 val valor = instancia.images //Ya no es necesario jaja
                 */
     }
+
+       // recyclerView.visibility = View.VISIBLE //VUELVE INVISIBLE O VISIBLE EL RECYCLERVIEW, ya no se necesita xd
+
+
 }

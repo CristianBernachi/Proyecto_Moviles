@@ -1,55 +1,27 @@
 package com.example.lista_series
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
-import kotlin.collections.ArrayList
 
-class MyAdapter: RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
-    val titulos = ArrayList<String>() //Datos cambiados a listas para facilitar la busqueda
-    val detalles = ArrayList<String>()
-    val images = ArrayList<Int>()
-    val TituloAux = ArrayList<String>()
-    val DetalleAux = ArrayList<String>()
-    val ImageAux = ArrayList<Int>()//Auxiliares para cambiar los arreglos por los filtrados
+class MyAdapter(private val seriesList: MutableList<Series>): RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
-    init {//Se inicializan los valores con los que se va a cargar el Recyclerviw
-        TituloAux.addAll(
-            listOf(
-                "Steins;Gate",
-                "Mushoku Tensei",
-                "Re;Zero",
-                "Tengen Toppa Gurren Laggan"
-            )
-        )
-        DetalleAux.addAll(
-            listOf(
-                "Ta chido",
-                "Compralo",
-                "10/10",
-            "Obra Maestra"
-            )
-        )
-        ImageAux.addAll(
-            listOf(
-                R.drawable.sg,
-                R.drawable.mt,
-                R.drawable.rz,
-                R.drawable.ttgl
-            )
-        )
-        titulos.addAll(TituloAux)
-        detalles.addAll(DetalleAux)
-        images.addAll(ImageAux)
+    private var filteredList: MutableList<Series> = seriesList
+    private var itemClickListener: OnItemClickListener? = null
+
+
+
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        itemClickListener = listener
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -64,6 +36,19 @@ class MyAdapter: RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
         }
 
+        fun bind(item: Int, listener: OnItemClickListener) {
+            itemView.setOnClickListener {
+                listener.onItemClick(adapterPosition)
+            }
+        }
+
+        fun render(seriesModel: Series) {
+            itemTitle.text = seriesModel.titulo
+            itemDetail.text = seriesModel.detalles
+            itemImage.setImageResource(seriesModel.imagen)
+
+        }
+
     }
 
 
@@ -74,16 +59,33 @@ class MyAdapter: RecyclerView.Adapter<MyAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemTitle.text = titulos[position]
-        holder.itemImage.setImageResource(images[position])
-        holder.itemDetail.text = detalles[position]
+        val item = filteredList[position]
+        holder.render(item)
+        itemClickListener?.let { holder.bind(position, it) }
 
     }
 
     override fun getItemCount(): Int {
-        return titulos.size
+        return filteredList.size
     }
 
+    fun filter(text: String){
+        val busqueda = text.toLowerCase(Locale.getDefault())
+
+        filteredList = if (busqueda.isNotEmpty()) (
+            seriesList.filter { series ->
+                series.titulo.toLowerCase(Locale.getDefault()).contains(busqueda)
+            }
+        ) as MutableList<Series>
+        else {
+            seriesList
+        }
+
+        notifyDataSetChanged()
+
+    }
+}
+/*
     fun filter(text: String) {
         val busqueda = text
         val filtroT = ArrayList<String>()
@@ -107,4 +109,50 @@ class MyAdapter: RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
         notifyDataSetChanged() //Funcion para notificar al Recyclerview de los cambios
     }
-}
+
+ */
+
+
+    /*val titulos = ArrayList<String>() //Datos cambiados a listas para facilitar la busqueda
+   val detalles = ArrayList<String>()
+   val images = ArrayList<Int>()
+   val TituloAux = ArrayList<String>()
+   val DetalleAux = ArrayList<String>()
+   val ImageAux = ArrayList<Int>()//Auxiliares para cambiar los arreglos por los filtrados
+
+
+   init {//Se inicializan los valores con los que se va a cargar el Recyclerviw
+       TituloAux.addAll(
+           listOf(
+               "Breaking Bad",
+               "Mushoku Tensei",
+               "Re;Zero",
+               "Steins;Gate",
+               "Tengen Toppa Gurren Laggan"
+
+           )
+       )
+       DetalleAux.addAll(
+           listOf(
+               "Jesse",
+               "Compralo",
+               "Ta chido",
+                  "10/10",
+           "Obra Maestra"
+
+           )
+       )
+       ImageAux.addAll(
+           listOf(
+               R.drawable.bb,
+               R.drawable.mt,
+               R.drawable.rz,
+               R.drawable.sg,
+               R.drawable.ttgl
+
+           )
+       )
+       titulos.addAll(TituloAux)
+       detalles.addAll(DetalleAux)
+       images.addAll(ImageAux)
+   }*/
