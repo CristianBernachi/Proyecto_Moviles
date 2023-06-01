@@ -9,6 +9,40 @@
     tools:context=".MainActivity"
     android:background="@drawable/custom_card">
 
+    <RadioGroup
+        android:id="@+id/rg_main"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        <RadioButton
+            android:id="@+id/rb_todas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Todas"
+            ></RadioButton>
+        <RadioButton
+            android:id="@+id/rb_viendo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Viendo"
+            ></RadioButton>
+
+        <RadioButton
+            android:id="@+id/rb_terminado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Terminado"
+            ></RadioButton>
+
+        <RadioButton
+            android:id="@+id/rb_dropped"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dropped"
+            ></RadioButton>
+        </RadioGroup>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"

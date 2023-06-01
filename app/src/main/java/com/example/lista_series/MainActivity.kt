@@ -5,26 +5,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
+    lateinit var radioGroup: RadioGroup
+    lateinit var rbViendo: RadioButton
+    lateinit var rbTerminado: RadioButton
+    lateinit var rbDropped: RadioButton
+    lateinit var rbTodas: RadioButton
+    var Series = SeriesProvider.SeriesList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initRV()
-
-        SeriesProvider.SeriesList.add(
-            Series(
-                "PRUEBA",
-                "PRUEBA",
-                R.drawable.mt,
-                0
-            )
-        )
-        println("Numero es: " + R.drawable.mt)
 
     }
 
@@ -44,7 +42,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun cambiarActivity(A: Int): Boolean{
-        when(A){//Determina a que activity cambiar dependiendo del menu
+
+        when(A){
 
             1 -> {
                 val act = Intent(this,BuscarActivity::class.java)
@@ -53,6 +52,7 @@ class MainActivity : AppCompatActivity() {
             2 -> {
                 val act = Intent(this,OpcionesActivity::class.java)
                 startActivity(act)
+
             }
         }
 
@@ -61,31 +61,63 @@ class MainActivity : AppCompatActivity() {
 
     fun initRV(){
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview) //Implementa el RecyclerView y su Adapter
-        val adapter = MyAdapter(SeriesProvider.SeriesList)
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+        val adapter = MyAdapter(Series)
 
         adapter.setOnItemClickListener(object : MyAdapter.OnItemClickListener {
 
             override fun onItemClick(position: Int) {
+
                 val clickedItem = SeriesProvider.SeriesList[position]
-                println("Numero es: " + R.drawable.mt)
+
                 val intent = Intent(this@MainActivity, DetallesActivity::class.java).apply {
                     putExtra("detalles", clickedItem.detalles)
                     putExtra("imagen", clickedItem.imagen)
                     putExtra("titulo", clickedItem.titulo)
                     putExtra("status", clickedItem.status)
+                    putExtra("capitulos", clickedItem.capitulos)
                 }
+
                 this@MainActivity.startActivity(intent)
-                //Toast.makeText( this@MainActivity,position.toString(), Toast.LENGTH_SHORT).show()
+
             }
         })
 
         recyclerView.layoutManager = LinearLayoutManager(this)//Modifica el LayoutManager del Recycler
         recyclerView.adapter = adapter
+
+        radioGroup = findViewById(R.id.rg_main)
+        rbViendo = findViewById(R.id.rb_viendo)
+        rbTerminado = findViewById(R.id.rb_terminado)
+        rbDropped = findViewById(R.id.rb_dropped)
+        rbTodas = findViewById(R.id.rb_todas)
+
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.rb_todas -> adapter.filterStatus(0)
+                R.id.rb_viendo -> adapter.filterStatus(1)
+                R.id.rb_terminado -> adapter.filterStatus(2)
+                R.id.rb_dropped -> adapter.filterStatus(3)
+            }
+        }
     }
+
+
 }
 
 /*val instancia = MyAdapter()  // Acceder a una varible de una clase desde otra
 val titulos = instancia.titulos
 val detalles = instancia.detalles
 val imagen = instancia.images*/
+
+/*SeriesProvider.SeriesList.add(
+         Series(
+             "PRUEBA",
+             "PRUEBA",
+             R.drawable.mt,
+             0
+         )
+     )
+     println("Numero es: " + R.drawable.mt)
+
+      */

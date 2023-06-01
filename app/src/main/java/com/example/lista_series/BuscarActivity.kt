@@ -24,6 +24,25 @@ class BuscarActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview2)
         val adapter = MyAdapter(SeriesProvider.SeriesList)
 
+        adapter.setOnItemClickListener(object : MyAdapter.OnItemClickListener {
+
+            override fun onItemClick(position: Int) {
+
+                val clickedItem = SeriesProvider.SeriesList[position]
+
+                val intent = Intent(this@BuscarActivity, DetallesActivity::class.java).apply {
+                    putExtra("detalles", clickedItem.detalles)
+                    putExtra("imagen", clickedItem.imagen)
+                    putExtra("titulo", clickedItem.titulo)
+                    putExtra("status", clickedItem.status)
+                    putExtra("capitulos", clickedItem.capitulos)
+                }
+
+                this@BuscarActivity.startActivity(intent)
+
+            }
+        })
+
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         Edit = findViewById(R.id.busqueda)

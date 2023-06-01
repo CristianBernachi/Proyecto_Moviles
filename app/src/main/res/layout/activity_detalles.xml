@@ -8,7 +8,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:theme="@style/Theme.AppCompat.NoActionBar"
-    tools:context=".DetallesActivity">
+    tools:context=".DetallesActivity"
+    android:background="@drawable/custom_detalles"
+   >
 
     <RelativeLayout
         android:id="@+id/relative"
@@ -62,6 +64,23 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/TextSpinner"
             android:layout_toEndOf="@+id/TextSpinner"></Spinner>
+
+        <ListView
+            android:id="@+id/detalles_lista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TextSpinner"
+            android:layout_alignStart="@+id/detalles_imagen"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/custom_card"></ListView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/detalles_imagen"
+            android:text="Capitulos"
+            android:textColor="@color/black"
+            ></TextView>
 
 
     </RelativeLayout>
