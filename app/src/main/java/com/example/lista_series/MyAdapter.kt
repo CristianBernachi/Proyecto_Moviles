@@ -29,7 +29,7 @@ class MyAdapter(private val seriesList: MutableList<Series>): RecyclerView.Adapt
         var itemTitle: TextView
         var itemDetail: TextView
 
-        init {//Se buscan los componentes del recycler para poder modificarlos con los valores antes inicializados
+        init {
             itemImage = itemView.findViewById(R.id.portada)
             itemTitle = itemView.findViewById(R.id.titulo)
             itemDetail = itemView.findViewById(R.id.details)
@@ -38,7 +38,7 @@ class MyAdapter(private val seriesList: MutableList<Series>): RecyclerView.Adapt
 
         fun bind(item: Int, listener: OnItemClickListener) {
             itemView.setOnClickListener {
-                listener.onItemClick(adapterPosition)
+                listener.onItemClick(absoluteAdapterPosition)
             }
         }
 
@@ -70,11 +70,11 @@ class MyAdapter(private val seriesList: MutableList<Series>): RecyclerView.Adapt
     }
 
     fun filter(text: String){
-        val busqueda = text.toLowerCase(Locale.getDefault())
+        val busqueda = text.lowercase(Locale.getDefault())
 
         filteredList = if (busqueda.isNotEmpty()) (
             seriesList.filter { series ->
-                series.titulo.toLowerCase(Locale.getDefault()).contains(busqueda)
+                series.titulo.lowercase(Locale.getDefault()).contains(busqueda)
             }
         ) as MutableList<Series>
         else {
