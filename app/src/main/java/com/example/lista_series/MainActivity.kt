@@ -75,6 +75,7 @@ class MainActivity : AppCompatActivity() {
                     putExtra("imagen", clickedItem.imagen)
                     putExtra("titulo", clickedItem.titulo)
                     putExtra("status", clickedItem.status)
+                    putExtra("capitulos", clickedItem.capitulos)
                 }
 
                 this@MainActivity.startActivity(intent)
