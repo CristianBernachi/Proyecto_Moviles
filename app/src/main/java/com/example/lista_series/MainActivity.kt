@@ -20,9 +20,11 @@ class MainActivity : AppCompatActivity() {
             Series(
                 "PRUEBA",
                 "PRUEBA",
-                R.drawable.mt
+                R.drawable.mt,
+                0
             )
         )
+        println("Numero es: " + R.drawable.mt)
 
     }
 
@@ -66,10 +68,12 @@ class MainActivity : AppCompatActivity() {
 
             override fun onItemClick(position: Int) {
                 val clickedItem = SeriesProvider.SeriesList[position]
+                println("Numero es: " + R.drawable.mt)
                 val intent = Intent(this@MainActivity, DetallesActivity::class.java).apply {
                     putExtra("detalles", clickedItem.detalles)
                     putExtra("imagen", clickedItem.imagen)
                     putExtra("titulo", clickedItem.titulo)
+                    putExtra("status", clickedItem.status)
                 }
                 this@MainActivity.startActivity(intent)
                 //Toast.makeText( this@MainActivity,position.toString(), Toast.LENGTH_SHORT).show()
