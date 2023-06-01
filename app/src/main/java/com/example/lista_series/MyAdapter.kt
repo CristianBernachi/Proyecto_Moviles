@@ -84,6 +84,21 @@ class MyAdapter(private val seriesList: MutableList<Series>): RecyclerView.Adapt
         notifyDataSetChanged()
 
     }
+
+    fun filterStatus(status: Int) {
+
+        filteredList = if(status!=0)(
+
+                seriesList.filter { it.status == status }
+
+                    ) as MutableList<Series>
+
+        else {
+            seriesList
+        }
+
+        notifyDataSetChanged()
+    }
 }
 /*
     fun filter(text: String) {
