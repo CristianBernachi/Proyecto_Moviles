@@ -5,14 +5,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".OpcionesActivity">
 
-
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Opciones"
-        android:layout_gravity="center"
-        ></TextView>
+        android:text="Modo oscuro"
+        android:gravity="center"
+        android:textSize="30dp"
+        />
+
+    <ToggleButton
+        android:id="@+id/toggleButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dark Mode"
+        style="@style/Widget.AppCompat.Button.Colored"
+        />
+
+    <ListView
+        android:id="@+id/ListaOpciones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
 </LinearLayout>
