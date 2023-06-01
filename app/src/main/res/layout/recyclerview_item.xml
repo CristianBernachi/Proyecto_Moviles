@@ -15,7 +15,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_card"
+        android:background="@drawable/custom_card_rounded"
         android:padding="16dp">
 
         <ImageView
