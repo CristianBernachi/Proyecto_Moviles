@@ -1,8 +1,7 @@
 package com.example.lista_series
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -36,6 +35,7 @@ class MyAdapter(private val seriesList: MutableList<Series>): RecyclerView.Adapt
 
         }
 
+
         fun bind(item: Int, listener: OnItemClickListener) {
             itemView.setOnClickListener {
                 listener.onItemClick(absoluteAdapterPosition)
@@ -61,6 +61,11 @@ class MyAdapter(private val seriesList: MutableList<Series>): RecyclerView.Adapt
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = filteredList[position]
         holder.render(item)
+        val checkBox = holder.itemView.findViewById<CheckBox>(R.id.añadirB)
+        checkBox.isChecked = item.fav
+        checkBox.setOnCheckedChangeListener { _, isChecked ->
+            item.fav = isChecked
+        }
         itemClickListener?.let { holder.bind(position, it) }
 
     }
@@ -99,6 +104,17 @@ class MyAdapter(private val seriesList: MutableList<Series>): RecyclerView.Adapt
 
         notifyDataSetChanged()
     }
+
+    fun filterFavorites(onlyFavorites: Boolean) {
+        filteredList = if (onlyFavorites) {
+            seriesList.filter { it.fav }.toMutableList()
+        } else {
+            seriesList.toMutableList()
+        }
+
+        notifyDataSetChanged()
+    }
+
 }
 /*
     fun filter(text: String) {
@@ -170,4 +186,14 @@ class MyAdapter(private val seriesList: MutableList<Series>): RecyclerView.Adapt
        titulos.addAll(TituloAux)
        detalles.addAll(DetalleAux)
        images.addAll(ImageAux)
-   }*/
+   }
+
+       fun filterFav() {
+
+        filteredList = seriesList.filter { it.fav == true } as MutableList<Series>
+
+        notifyDataSetChanged()
+    }
+
+
+   */

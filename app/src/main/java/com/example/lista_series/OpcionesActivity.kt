@@ -2,6 +2,10 @@ package com.example.lista_series
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ContextMenu
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
@@ -15,10 +19,13 @@ class OpcionesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_opciones)
 
+
+
         listView = findViewById(R.id.ListaOpciones)
         toggleButton = findViewById(R.id.toggleButton)
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, options)
         listView.adapter = adapter
+        registerForContextMenu(listView)
 
         listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             val selectedItem = options[position]
@@ -27,10 +34,10 @@ class OpcionesActivity : AppCompatActivity() {
 
         toggleButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                // Enable dark mode
+
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else {
-                // Disable dark mode
+
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
@@ -42,7 +49,6 @@ class OpcionesActivity : AppCompatActivity() {
         builder.setTitle("¿$option?")
 
         if (option == options.last()) {
-            // Create an EditText for user input
             val inputEditText = EditText(this)
             inputEditText.hint = "Tu error"
             builder.setView(inputEditText)
@@ -62,7 +68,6 @@ class OpcionesActivity : AppCompatActivity() {
         }
 
         builder.setNegativeButton("Cancelar") { dialog, _ ->
-            // Handle Cancel button click
             Toast.makeText(this, "Cancelado", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }
@@ -70,5 +75,22 @@ class OpcionesActivity : AppCompatActivity() {
         val dialog = builder.create()
         dialog.show()
     }
+
+    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        menu.setHeaderTitle("EASTER EGG")
+        menu.add(Menu.NONE, 1, Menu.NONE, "SECRETO")
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            1 -> {
+                Toast.makeText(this, "Hola", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onContextItemSelected(item)
+        }
+    }
+
 
 }
