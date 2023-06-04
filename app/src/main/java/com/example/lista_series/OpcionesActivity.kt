@@ -1,5 +1,7 @@
 package com.example.lista_series
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ContextMenu
@@ -9,11 +11,20 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
+import java.text.SimpleDateFormat
+import java.util.*
 
 class OpcionesActivity : AppCompatActivity() {
 
     private lateinit var listView: ListView
     private lateinit var toggleButton: ToggleButton
+
+    private lateinit var btnDateTimePicker: Button
+    private lateinit var tvSelectedDateTime: TextView
+    private lateinit var calendar: Calendar
+
+
+
     private val options = arrayOf("Activar/Desactivar notificaciones", "Cambiar tema de la aplicación", "Notificar un error")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +34,44 @@ class OpcionesActivity : AppCompatActivity() {
 
         listView = findViewById(R.id.ListaOpciones)
         toggleButton = findViewById(R.id.toggleButton)
+
+        btnDateTimePicker = findViewById(R.id.btnDateTimePicker)
+        tvSelectedDateTime = findViewById(R.id.tvSelectedDateTime)
+        calendar = Calendar.getInstance()
+
+
+        btnDateTimePicker.setOnClickListener {
+            val datePickerDialog = DatePickerDialog(this,
+                { _, year, monthOfYear, dayOfMonth ->
+                    calendar.set(Calendar.YEAR, year)
+                    calendar.set(Calendar.MONTH, monthOfYear)
+                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                    val hour = calendar.get(Calendar.HOUR_OF_DAY)
+                    val minute = calendar.get(Calendar.MINUTE)
+
+                    val timePickerDialog = TimePickerDialog(this,
+                        { _, selectedHour, selectedMinute ->
+                            calendar.set(Calendar.HOUR_OF_DAY, selectedHour)
+                            calendar.set(Calendar.MINUTE, selectedMinute)
+
+                            val selectedDateTime = SimpleDateFormat(
+                                "dd/MM/yyyy HH:mm",
+                                Locale.getDefault()
+                            ).format(calendar.time)
+                            tvSelectedDateTime.text = "Recordatorio: $selectedDateTime"
+                        }, hour, minute, true)
+                    timePickerDialog.show()
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            )
+            datePickerDialog.datePicker.minDate = System.currentTimeMillis()
+            datePickerDialog.show()
+        }
+
+
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, options)
         listView.adapter = adapter
         registerForContextMenu(listView)

@@ -28,9 +28,23 @@
     <ListView
         android:id="@+id/ListaOpciones"
         android:layout_width="match_parent"
+        android:layout_height="191dp"
+        android:longClickable="true" />
+
+    <Button
+        android:id="@+id/btnDateTimePicker"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:longClickable="true"
-        />
+        android:text="Recordatorio"
+        android:layout_gravity="center"></Button>
+
+    <TextView
+        android:id="@+id/tvSelectedDateTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recordatorio: "
+        android:layout_gravity="center"></TextView>
+
 
 
 </LinearLayout>
