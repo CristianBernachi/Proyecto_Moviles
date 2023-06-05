@@ -47,14 +47,13 @@ class SeriesProvider {
                 ),
 
             Series(
-                "Tengen Toppa Gurren Laggan",
+                "Tengen Toppa",
                 "Tengen Toppa Gurren Laggan es un anime de mechas",
                 R.drawable.ttgl,
                 0,
                 25,
                 false,
                 "Tengen Toppa Gurren Lagann es un anime de acción y aventuras en el que Simon y Kamina luchan contra un régimen opresivo. Con su mecha Gurren Lagann, buscan liberar a la humanidad y alcanzar la superficie. La serie se destaca por su energía explosiva y un mensaje inspirador sobre la determinación humana.",
-
                 ),
 
         )

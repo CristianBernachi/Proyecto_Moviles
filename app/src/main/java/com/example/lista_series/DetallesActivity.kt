@@ -16,7 +16,7 @@ class DetallesActivity : AppCompatActivity() {
     lateinit var statusCapitulos: MutableList<Boolean>
 
 
-    val Status = listOf<String>(
+    val Status = listOf(
             "Sin Empezar",
             "Viendo",
             "Terminado",
@@ -51,14 +51,14 @@ class DetallesActivity : AppCompatActivity() {
         val adapterL = ArrayAdapter(this, android.R.layout.simple_list_item_1, capitulosList)
         val adapterS = ArrayAdapter(this, android.R.layout.simple_spinner_item, Status)
 
+        println(status)
+
         statusCapitulos = MutableList(capitulos){ false }
 
         spinner.adapter = adapterS
         lista.adapter = adapterL
 
         spinner.setSelection(status)
-
-        if(detallesc == null) println("Aqui hay algo raro")
 
         title.text = titulo
         image.setImageResource(imagen)
