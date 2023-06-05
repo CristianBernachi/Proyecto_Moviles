@@ -31,7 +31,7 @@ class BuscarActivity : AppCompatActivity() {
                 val clickedItem = SeriesProvider.SeriesList[position]
 
                 val intent = Intent(this@BuscarActivity, DetallesActivity::class.java).apply {
-                    putExtra("detalles", clickedItem.detalles)
+                    putExtra("detalles", clickedItem.detallescompletos)
                     putExtra("imagen", clickedItem.imagen)
                     putExtra("titulo", clickedItem.titulo)
                     putExtra("status", clickedItem.status)

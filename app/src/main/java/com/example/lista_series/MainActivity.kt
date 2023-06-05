@@ -64,29 +64,10 @@ class MainActivity : AppCompatActivity() {
 
     fun initRV(){
 
-        filterlist = Series.filter { it.fav }.toMutableList()
+        filterlist = Series.filter { it.fav==true }.toMutableList()
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = MyAdapter(filterlist)
-        adapter.filterFavorites(true)
-        adapter.setOnItemClickListener(object : MyAdapter.OnItemClickListener {
-
-            override fun onItemClick(position: Int) {
-
-                val clickedItem = SeriesProvider.SeriesList[position]
-                Toast.makeText(this@MainActivity, clickedItem.fav.toString(), Toast.LENGTH_LONG).show()
-                val intent = Intent(this@MainActivity, DetallesActivity::class.java).apply {
-                    putExtra("detalles", clickedItem.detalles)
-                    putExtra("imagen", clickedItem.imagen)
-                    putExtra("titulo", clickedItem.titulo)
-                    putExtra("status", clickedItem.status)
-                    putExtra("capitulos", clickedItem.capitulos)
-                }
-
-                this@MainActivity.startActivity(intent)
-
-            }
-        })
-
+        //adapter.filterFavorites(true)
         recyclerView.layoutManager = LinearLayoutManager(this)//Modifica el LayoutManager del Recycler
         recyclerView.adapter = adapter
 
@@ -98,12 +79,29 @@ class MainActivity : AppCompatActivity() {
 
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.rb_todas -> adapter.filterStatus(0)
-                R.id.rb_viendo -> adapter.filterStatus(1)
-                R.id.rb_terminado -> adapter.filterStatus(2)
-                R.id.rb_dropped -> adapter.filterStatus(3)
+                R.id.rb_todas -> filterlist = adapter.filterStatus(0)
+                R.id.rb_viendo -> filterlist = adapter.filterStatus(1)
+                R.id.rb_terminado -> filterlist = adapter.filterStatus(2)
+                R.id.rb_dropped -> filterlist = adapter.filterStatus(3)
             }
         }
+        adapter.setOnItemClickListener(object : MyAdapter.OnItemClickListener {
+
+            override fun onItemClick(position: Int) {
+
+                val clickedItem = filterlist[position]
+                val intent = Intent(this@MainActivity, DetallesActivity::class.java).apply {
+                    putExtra("imagen", clickedItem.imagen)
+                    putExtra("titulo", clickedItem.titulo)
+                    putExtra("status", clickedItem.status)
+                    putExtra("capitulos", clickedItem.capitulos)
+                    putExtra("detalles", clickedItem.detallescompletos)
+                }
+
+                this@MainActivity.startActivity(intent)
+
+            }
+        })
     }
     private fun updateMainActivity() {
         initRV()

@@ -12,6 +12,7 @@ class DetallesActivity : AppCompatActivity() {
     lateinit var detalle: TextView
     lateinit var lista: ListView
     lateinit var spinner: Spinner
+    lateinit var tvc: TextView
     lateinit var statusCapitulos: MutableList<Boolean>
 
 
@@ -36,14 +37,15 @@ class DetallesActivity : AppCompatActivity() {
         title = findViewById(R.id.detalles_titulo)
         image = findViewById(R.id.detalles_imagen)
         detalle = findViewById(R.id.detalles_detalle)
-        spinner = findViewById<Spinner>(R.id.spinner_detalles)
+        spinner = findViewById(R.id.spinner_detalles)
         lista = findViewById(R.id.detalles_lista)
+        tvc = findViewById(R.id.textview_caps)
 
         val titulo = intent.getStringExtra("titulo")
-        val detalles = intent.getStringExtra("detallescompletos")
         val imagen = intent.getIntExtra("imagen", 0)
         var status = intent.getIntExtra("status", 0)
         var capitulos = intent.getIntExtra("capitulos", 0)
+        val detallesc = intent.getStringExtra("detalles")
         val series = SeriesProvider.SeriesList.find { it.titulo == titulo }
 
         val adapterL = ArrayAdapter(this, android.R.layout.simple_list_item_1, capitulosList)
@@ -56,10 +58,12 @@ class DetallesActivity : AppCompatActivity() {
 
         spinner.setSelection(status)
 
+        if(detallesc == null) println("Aqui hay algo raro")
 
         title.text = titulo
         image.setImageResource(imagen)
-        detalle.text= detalles
+        detalle.text= detallesc
+        tvc.text = "Capitulos: $capitulos"
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {

@@ -90,7 +90,7 @@ class MyAdapter(private val seriesList: MutableList<Series>): RecyclerView.Adapt
 
     }
 
-    fun filterStatus(status: Int) {
+    fun filterStatus(status: Int): MutableList<Series> {
 
         filteredList = if(status!=0)(
 
@@ -103,14 +103,13 @@ class MyAdapter(private val seriesList: MutableList<Series>): RecyclerView.Adapt
         }
 
         notifyDataSetChanged()
+        return filteredList
     }
 
     fun filterFavorites(onlyFavorites: Boolean) {
-        filteredList = if (onlyFavorites) {
+        filteredList =
             seriesList.filter { it.fav }.toMutableList()
-        } else {
-            seriesList.toMutableList()
-        }
+
 
         notifyDataSetChanged()
     }

@@ -48,8 +48,9 @@
             android:layout_alignParentEnd="true"
             android:layout_marginStart="2dp"
             android:layout_marginLeft="2dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="0dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="2dp"
+            android:justificationMode="inter_word"
             android:gravity="left"
             android:layout_marginBottom="-142dp"
             android:layout_toEndOf="@+id/detalles_imagen"
@@ -92,6 +93,7 @@
             android:background="@drawable/custom_card"></ListView>
 
         <TextView
+            android:id="@+id/textview_caps"
             android:layout_width="133dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
