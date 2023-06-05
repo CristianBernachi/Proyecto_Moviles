@@ -13,6 +13,7 @@ class DetallesActivity : AppCompatActivity() {
     lateinit var spinner: Spinner
     lateinit var statusCapitulos: MutableList<Boolean>
 
+
     val Status = listOf<String>(
             "Sin Empezar",
             "Viendo",

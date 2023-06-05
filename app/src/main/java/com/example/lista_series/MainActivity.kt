@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.RadioButton
-import android.widget.RadioGroup
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
+    private var filterlist: MutableList<Series> = mutableListOf()
     lateinit var radioGroup: RadioGroup
     lateinit var rbViendo: RadioButton
     lateinit var rbTerminado: RadioButton
@@ -21,7 +21,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        val fabRefresh = findViewById<Button>(R.id.fab_refresh)
+        fabRefresh.setOnClickListener {
+            updateMainActivity()
+        }
         initRV()
 
     }
@@ -61,15 +64,16 @@ class MainActivity : AppCompatActivity() {
 
     fun initRV(){
 
+        filterlist = Series.filter { it.fav }.toMutableList()
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-        val adapter = MyAdapter(Series)
-
+        val adapter = MyAdapter(filterlist)
+        adapter.filterFavorites(true)
         adapter.setOnItemClickListener(object : MyAdapter.OnItemClickListener {
 
             override fun onItemClick(position: Int) {
 
                 val clickedItem = SeriesProvider.SeriesList[position]
-
+                Toast.makeText(this@MainActivity, clickedItem.fav.toString(), Toast.LENGTH_LONG).show()
                 val intent = Intent(this@MainActivity, DetallesActivity::class.java).apply {
                     putExtra("detalles", clickedItem.detalles)
                     putExtra("imagen", clickedItem.imagen)
@@ -101,7 +105,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
+    private fun updateMainActivity() {
+        initRV()
+    }
 
 }
 

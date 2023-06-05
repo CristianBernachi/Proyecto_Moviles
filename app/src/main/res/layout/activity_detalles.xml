@@ -25,7 +25,6 @@
 
             ></ImageView>
 
-
         <TextView
             android:id="@+id/detalles_titulo"
             android:layout_width="wrap_content"

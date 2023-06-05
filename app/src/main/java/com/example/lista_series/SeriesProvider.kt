@@ -8,7 +8,8 @@ class SeriesProvider {
                 "Jesse",
                 R.drawable.bb,
                 0,
-                48
+                48,
+                false
             ),
 
             Series(
@@ -16,7 +17,8 @@ class SeriesProvider {
                 "Compralo",
                 R.drawable.mt,
                 0,
-                35
+                35,
+                false
             ),
 
             Series(
@@ -24,7 +26,8 @@ class SeriesProvider {
                 "10/10",
                   R.drawable.sg,
                 0,
-                24
+                24,
+                false
             ),
 
             Series(
@@ -32,7 +35,8 @@ class SeriesProvider {
                 "Ta chido",
                 R.drawable.rz,
                 0,
-                48
+                48,
+                false
             ),
 
             Series(
@@ -40,7 +44,8 @@ class SeriesProvider {
                 "Obra Maestra",
                 R.drawable.ttgl,
                 0,
-                25
+                25,
+                false
             ),
 
         )
