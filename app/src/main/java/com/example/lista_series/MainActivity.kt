@@ -21,22 +21,24 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val fabRefresh = findViewById<Button>(R.id.fab_refresh)
         fabRefresh.setOnClickListener {
             updateMainActivity()
         }
+
         initRV()
 
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        getMenuInflater().inflate(R.menu.activity_main_menu, menu)//Infla el menu de opciones
+        getMenuInflater().inflate(R.menu.activity_main_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        return when(item.itemId) {//Determina con que parte del menu se interactúo
+        return when(item.itemId) {
             R.id.buscar -> cambiarActivity(1)
             R.id.conf -> cambiarActivity(2)
             else -> super.onOptionsItemSelected(item)
@@ -67,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         filterlist = Series.filter { it.fav==true }.toMutableList()
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = MyAdapter(filterlist)
-        //adapter.filterFavorites(true)
+
         recyclerView.layoutManager = LinearLayoutManager(this)//Modifica el LayoutManager del Recycler
         recyclerView.adapter = adapter
 
@@ -108,20 +110,3 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
-
-/*val instancia = MyAdapter()  // Acceder a una varible de una clase desde otra
-val titulos = instancia.titulos
-val detalles = instancia.detalles
-val imagen = instancia.images*/
-
-/*SeriesProvider.SeriesList.add(
-         Series(
-             "PRUEBA",
-             "PRUEBA",
-             R.drawable.mt,
-             0
-         )
-     )
-     println("Numero es: " + R.drawable.mt)
-
-      */

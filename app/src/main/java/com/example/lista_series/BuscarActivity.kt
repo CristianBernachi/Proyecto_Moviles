@@ -64,13 +64,9 @@ class BuscarActivity : AppCompatActivity() {
 
 
         })
-                    /*
-                val instancia = MyAdapter()  // Acceder a una varible de una clase desde otra
-                val valor = instancia.images //Ya no es necesario jaja
-                */
+
     }
 
-       // recyclerView.visibility = View.VISIBLE //VUELVE INVISIBLE O VISIBLE EL RECYCLERVIEW, ya no se necesita xd
 
 
 }

@@ -51,8 +51,6 @@ class DetallesActivity : AppCompatActivity() {
         val adapterL = ArrayAdapter(this, android.R.layout.simple_list_item_1, capitulosList)
         val adapterS = ArrayAdapter(this, android.R.layout.simple_spinner_item, Status)
 
-        println(status)
-
         statusCapitulos = MutableList(capitulos){ false }
 
         spinner.adapter = adapterS

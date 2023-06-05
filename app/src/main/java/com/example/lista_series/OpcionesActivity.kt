@@ -156,7 +156,6 @@ class OpcionesActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener 
                 popup.show()
                 return true
             }
-            // Handle other menu item clicks if needed
         }
         return super.onOptionsItemSelected(item)
     }
