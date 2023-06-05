@@ -2,6 +2,7 @@ package com.example.lista_series
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 
@@ -39,7 +40,7 @@ class DetallesActivity : AppCompatActivity() {
         lista = findViewById(R.id.detalles_lista)
 
         val titulo = intent.getStringExtra("titulo")
-        val detalles = intent.getStringExtra("detalles")
+        val detalles = intent.getStringExtra("detallescompletos")
         val imagen = intent.getIntExtra("imagen", 0)
         var status = intent.getIntExtra("status", 0)
         var capitulos = intent.getIntExtra("capitulos", 0)

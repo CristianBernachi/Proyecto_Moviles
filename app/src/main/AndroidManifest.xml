@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Lista_Series"
         tools:targetApi="31">
         <activity
+            android:name=".AboutUs"
+            android:exported="false" />
+        <activity
             android:name=".DetallesActivity"
             android:exported="false">
             <meta-data

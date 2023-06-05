@@ -20,31 +20,42 @@
 
         <ImageView
             android:id="@+id/detalles_imagen"
-            android:layout_width="131dp"
+            android:layout_width="127dp"
             android:layout_height="184dp"
 
             ></ImageView>
 
         <TextView
             android:id="@+id/detalles_titulo"
-            android:layout_width="wrap_content"
+            android:layout_width="278dp"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/detalles_imagen"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="1dp"
             android:text="default"
-            android:textColor="@color/black"
+            android:gravity="center"
+            android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold"></TextView>
 
         <TextView
             android:id="@+id/detalles_detalle"
-            android:layout_width="wrap_content"
+            android:layout_width="278dp"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/detalles_titulo"
             android:layout_alignBottom="@+id/detalles_titulo"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="-30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="0dp"
+            android:gravity="left"
+            android:layout_marginBottom="-142dp"
+            android:layout_toEndOf="@+id/detalles_imagen"
             android:layout_toRightOf="@+id/detalles_imagen"
             android:text="Default"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="10sp"></TextView>
 
         <TextView
@@ -52,16 +63,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/detalles_imagen"
+            android:layout_marginStart="62dp"
             android:layout_toEndOf="@+id/detalles_imagen"
             android:text="Status"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="15sp"></TextView>
 
         <Spinner
             android:id="@+id/spinner_detalles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="145dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/detalles_titulo"
             android:layout_alignBottom="@+id/TextSpinner"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="144dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="-3dp"
             android:layout_toEndOf="@+id/TextSpinner"></Spinner>
 
         <ListView
@@ -74,12 +92,14 @@
             android:background="@drawable/custom_card"></ListView>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="133dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/detalles_imagen"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="185dp"
+            android:layout_marginEnd="72dp"
+            android:gravity="center"
             android:text="Capitulos"
-            android:textColor="@color/black"
-            ></TextView>
+            android:textColor="@color/white"></TextView>
 
 
     </RelativeLayout>

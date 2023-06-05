@@ -2,6 +2,7 @@ package com.example.lista_series
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ContextMenu
@@ -14,7 +15,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import java.text.SimpleDateFormat
 import java.util.*
 
-class OpcionesActivity : AppCompatActivity() {
+class OpcionesActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener {
 
     private lateinit var listView: ListView
     private lateinit var toggleButton: ToggleButton
@@ -139,6 +140,36 @@ class OpcionesActivity : AppCompatActivity() {
             }
             else -> super.onContextItemSelected(item)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.activity_options_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.aboutUs -> {
+                val popup = PopupMenu(this, findViewById<View>(R.id.aboutUs))
+                popup.inflate(R.menu.popup_menu)
+                popup.setOnMenuItemClickListener(this)
+                popup.show()
+                return true
+            }
+            // Handle other menu item clicks if needed
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onMenuItemClick(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.aboutUsPopup -> {
+                val intent = Intent(this, AboutUs::class.java)
+                startActivity(intent)
+                return true
+            }
+        }
+        return false
     }
 
 
